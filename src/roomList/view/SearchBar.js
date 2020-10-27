@@ -53,6 +53,11 @@ export default function SearchBar() {
       <Link to="/room-create" className={classes.text}>
         <ButtonTemplate text={"방 만들기"} />
       </Link>
+
+      {/* 임시적으로 방 입장 버튼 만듬 */}
+      <Link to="/room-entrance" className={classes.text}>
+        <ButtonTemplate text={"방 입장"} />
+      </Link>
     </div>
   );
 }

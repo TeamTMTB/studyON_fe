@@ -1,0 +1,46 @@
+.RoomEntrance_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.RoomEntrance_title {
+  display: flex;
+  width: 50%;
+  height: 4rem;
+  position: relative;
+  left: 25%;
+  top: 1rem;
+  align-items: center;
+  border: 1px solid grey;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 5px 5px grey;
+}
+
+.RoomEntrance_left {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 45rem;
+  margin-right: 2rem;
+  position: relative;
+  left: 7rem;
+}
+.RoomEntrance_left_item {
+  height: 25rem;
+  font-size: large;
+  top: 2rem;
+}
+
+.RoomEntrance_right {
+  width: 45%;
+  position: relative;
+  left: 6rem;
+  top: 2rem;
+}
+
+.RoomEntrance_container {
+  display: inline-flex;
+  flex-direction: row;
+}

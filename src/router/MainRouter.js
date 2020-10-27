@@ -4,6 +4,7 @@ import Home from "../home/view/Home";
 import Login from "../login/view/Login";
 import RoomCreate from "../view/RoomCreate";
 import RoomList from "../roomList/view/RoomList";
+import RoomEntrance from "../roomEntrance/view/RoomEntrance";
 
 class MainRouter extends Component {
   render() {
@@ -15,6 +16,7 @@ class MainRouter extends Component {
             <Route path="/login" component={Login} />
             <Route path="/room-create" component={RoomCreate} />
             <Route path="/room-list" component={RoomList} />
+            <Route path="/room-entrance" component={RoomEntrance} />
           </Switch>
         </BrowserRouter>
       </>
