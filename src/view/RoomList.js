@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import ListView from "./ListView";
+import SearchBar from "./SearchBar";
 
-class RoomList extends Component {
-  render() {
+function RoomList() {
     return (
-      <>
-        <div>RoomList Page</div>
-        <Link to="/login">
-          <button>login</button>
-        </Link>
-        <Link to="/room-create">
-          <button>방 만들기</button>
-        </Link>
-      </>
+        <div className="App">
+            <SearchBar />
+
+            <ListView />
+        </div>
     );
-  }
 }
 
 export default RoomList;
