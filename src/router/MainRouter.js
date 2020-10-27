@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "../view/Home";
-import Login from "../view/Login";
+import Home from "../home/view/Home";
+import Login from "../login/view/Login";
 import RoomCreate from "../view/RoomCreate";
-import RoomList from "../view/RoomList";
+import RoomList from "../roomList/view/RoomList";
 
 class MainRouter extends Component {
   render() {

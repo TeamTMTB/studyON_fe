@@ -1,0 +1,80 @@
+.button_text {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+.logo {
+  position: relative;
+  width: 30rem;
+  align-items: center;
+  left: 29rem;
+  top: 13rem;
+}
+
+.logo_desc {
+  color: #ffffff;
+  font-size: large;
+  font-family: "GmarketSansTTF Medium";
+  width: 13rem;
+  text-align: center;
+  position: relative;
+  left: 43rem;
+  top: 10.5rem;
+}
+.scroll_next {
+  color: #ffffff;
+  width: auto;
+  position: absolute;
+  bottom: 1rem;
+  left: 45%;
+  opacity: 0.6;
+}
+
+.section2_desc {
+  width: 60rem;
+  position: relative;
+  left: 14rem;
+  top: 13rem;
+  text-align: center;
+  font-family: "GmarketSansTTF Medium";
+  font-weight: bold;
+  font-size: xx-large;
+  color: #ffffff;
+
+  .section2_desc_bold {
+    font-size: 3.5rem;
+    position: relative;
+    bottom: 1.5rem;
+  }
+}
+
+.section2_button_room {
+  position: relative;
+  left: 37.5rem;
+  top: 14.5rem;
+  display: flex;
+  width: 13rem;
+  justify-content: space-between;
+}
+.section3_photo_desc {
+  width: 34rem;
+  position: relative;
+  left: 40rem;
+  top: 14rem;
+  font-family: "GmarketSansTTF Medium";
+  color: #ffffff;
+
+  .section3_photo_desc_title {
+    font-size: xx-large;
+    font-weight: bold;
+  }
+}
+
+.section3_button_room {
+  position: relative;
+  left: 46.5rem;
+  top: 15rem;
+  display: flex;
+  width: 13rem;
+  justify-content: space-between;
+}
