@@ -3,6 +3,7 @@ import { Link, BrowserRouter } from "react-router-dom";
 import "../scss/Navbar.scss";
 import Navbar from "./Navbar/Navbar";
 import ButtonTemplate from "../../icon/view/ButtonTemplate";
+import * as BsIcons from "react-icons/bs";
 
 class Header extends Component {
   render() {
@@ -20,6 +21,11 @@ class Header extends Component {
           <div className="button_login">
             <Link to="/login" className="button_text">
               <ButtonTemplate text={"LOGIN"} />
+            </Link>
+          </div>
+          <div className="button_myPages">
+            <Link to="/myPages" className="myPages_text">
+              <BsIcons.BsFillPersonFill />
             </Link>
           </div>
         </div>
