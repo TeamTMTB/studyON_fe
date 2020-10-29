@@ -17,3 +17,7 @@ code {
   font-family: "GmarketSansTTF Medium";
   src: url(./assets/fonts/GmarketSansTTFMedium.ttf) format("truetype");
 }
+@font-face {
+  font-family: "GmarketSansTTF Bold";
+  src: url(./assets/fonts/GmarketSansTTFBold.ttf) format("truetype");
+}
