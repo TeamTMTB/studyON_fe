@@ -24,10 +24,8 @@ class RoomApiModel {
     maxPeopleNum,
     tag,
     //currentTerm,
-    maxTerm,
-    owner
+    maxTerm
   ) {
-    this.userId = owner;
     this.title = title;
     this.description = description;
     this.startTime = startTime.toString();
@@ -38,11 +36,10 @@ class RoomApiModel {
     this.tag = tag;
     //this.currentTerm = currentTerm;
     this.maxTerm = maxTerm;
-    this.owner = owner;
   }
   getJson() {
     let json = {
-      userId: this.userId,
+      userId: 2345,
       roomInfo: {
         title: this.title,
         description: this.description,
@@ -54,7 +51,7 @@ class RoomApiModel {
         tag: this.tag,
         //currentTerm: this.currentTerm,
         maxTerm: this.maxTerm,
-        owner: this.owner,
+        owner: this.userId,
       },
     };
     return json;
