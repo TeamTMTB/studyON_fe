@@ -7,9 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import "antd/dist/antd.css";
 import { Provider } from "mobx-react";
 import Store from "./roomList/store/Store";
+import TodoStore from "./myPage/view/TodoStore";
 
 ReactDOM.render(
-  <Provider Store={Store}>
+  <Provider Store={Store} TodoStore={TodoStore}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
