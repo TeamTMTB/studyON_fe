@@ -36,7 +36,7 @@ class MyPages extends Component {
               <div className="todo">
                 <strong style={{ fontSize: "11px" }}>{this.props.date}</strong>
                 <TodoContainer />
-      
+       
               </div>
               <CalendarContainer date={this.state.date} />
               {/* <div className="calendar">
