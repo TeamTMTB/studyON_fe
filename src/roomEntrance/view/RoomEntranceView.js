@@ -47,7 +47,7 @@ const RoomEntranceView = ({ mySocket, room, rooms, match, owner, currentUser }) 
     </>
   );
             </Card> */}
-            <TabsCard roomData={data} className="RoomEntrance_left_item" />
+            <TabsCard roomData={data} mySocket={mySocket} className="RoomEntrance_left_item" />
 
             <Card
               title="실적 게시판"
