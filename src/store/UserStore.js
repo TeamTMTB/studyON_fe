@@ -13,6 +13,9 @@ class UserStore {
   @observable
   loading = false;
 
+  @observable
+  curPoint = 2000;
+
   @computed
   get getAuthenticated() {
     return this.authenticated;
@@ -26,6 +29,11 @@ class UserStore {
   @computed
   get getLoading() {
     return this.loading;
+  }
+
+  @computed
+  get getCurPoint() {
+    return this.curPoint;
   }
 
   @action
@@ -51,6 +59,21 @@ class UserStore {
 
     Alert.success("You're safely logged out!");
   };
+
+  @action
+  setCurPoint = (curPoint) => {
+    this.curPoint = curPoint;
+    console.log(curPoint)
+  }
+  // @action
+  // inCurPoint(num) {
+  //   this.curPoint = this.curPoint + num;
+  // }
+
+  // @action
+  // disCurPoint(num) {
+  //   this.curPoint = this.curPoint - num
+  // }
 }
 
 export default new UserStore();

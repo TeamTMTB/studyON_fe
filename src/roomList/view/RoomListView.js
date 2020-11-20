@@ -43,7 +43,7 @@ const UseStyles = makeStyles((theme) => ({
 
 export default function RoomListView(props) {
     const classes = UseStyles();
-    const { rooms, room, setRoom, mySocket } = props;
+    const { rooms, room, setRoom, mySocket, onHandleClick } = props;
     const [open, setOpen] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const socketRef = useRef();
@@ -63,7 +63,9 @@ export default function RoomListView(props) {
         });
     }, []);
 
-    
+
+    // console.log(curPoint);
+
     console.log(rooms);
     return (
         <div className={classes.root}>
@@ -86,8 +88,8 @@ export default function RoomListView(props) {
                                         {" "}
                                         {room.tag
                                             ? room.tag
-                                                  .split(",")
-                                                  .map((tag) => `#${tag} `)
+                                                .split(",")
+                                                .map((tag) => `#${tag} `)
                                             : null}
                                     </span>
                                 }
@@ -146,7 +148,7 @@ export default function RoomListView(props) {
                 </DialogContent>
                 <DialogActions>
                     <Link to={`/room-entrance/${room.owner}`}>
-                        <ButtonTemplate text={"방 입장"} />
+                        <ButtonTemplate text={"방 입장"} onClick={onHandleClick} />
                     </Link>
                 </DialogActions>
             </Dialog>
