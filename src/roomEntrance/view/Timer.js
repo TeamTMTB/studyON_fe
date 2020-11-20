@@ -8,14 +8,13 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import soundUrl from "../images/sound.mp3";
-import Sound from 'react-sound';
+import Sound from "react-sound";
 import "../scss/Timer.scss";
 
-
 export default function Timer(props) {
-    const {mySocket, owner, room, currentUser} = props;
+    const { mySocket, owner, room, currentUser, updateIsPlaying } = props;
     const [playing, setPlaying] = useState(false);
-    const [audioOn, setAudioOn] = useState('');
+    const [audioOn, setAudioOn] = useState("");
     const [yourID, setYourID] = useState();
     const [count, setCount] = useState(0);
     const [role, setRole] = useState(owner);
@@ -55,9 +54,15 @@ export default function Timer(props) {
         console.log(socketRef.current.id);
         console.log("okay");
         //if(socketRef.current.id === role){
-            if (bool) {socketRef.current.emit("timer start sign", owner,socketRef.current.id +"가 timer start!! "+owner);
-            console.log("got it")}
-            else socketRef.current.emit("timer stop sign", "timer stop!!");
+        if (bool) {
+            socketRef.current.emit(
+                "timer start sign",
+                owner,
+                socketRef.current.id + "가 timer start!! " + owner
+            );
+            updateIsPlaying();
+            console.log("got it");
+        } else socketRef.current.emit("timer stop sign", "timer stop!!");
         //}
     }
 
@@ -70,15 +75,14 @@ export default function Timer(props) {
 
         socketRef.current.on("timer start", (message) => {
             console.log(message);
-                setPlaying(true);
+            setPlaying(true);
         });
     }, []);
 
-
-    function countAlarm(){
-        setCount(count+1);
+    function countAlarm() {
+        setCount(count + 1);
         socketRef.current.emit("alarm off", owner, currentUser.name, count);
-        setOpen(false)
+        setOpen(false);
     }
 
     function handleStudyTime(e) {
@@ -94,13 +98,9 @@ export default function Timer(props) {
         setKey(!key);
     }
 
-    
-
     return (
         <div className="App">
-            <h1>
-                StudyON Timer
-            </h1>
+            <h1>StudyON Timer</h1>
             <div className="timer-wrapper">
                 <CountdownCircleTimer
                     isPlaying={playing}
@@ -133,11 +133,7 @@ export default function Timer(props) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button
-                        onClick={countAlarm}
-                        color="primary"
-                        autoFocus
-                    >
+                    <Button onClick={countAlarm} color="primary" autoFocus>
                         Okay
                     </Button>
                 </DialogActions>

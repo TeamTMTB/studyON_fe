@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import RoomEntranceView from "../view/RoomEntranceView";
 
-@inject("Store","UserStore")
+@inject("Store", "UserStore")
 @observer
 class RoomEntranceContainer extends Component {
   componentDidMount() {
