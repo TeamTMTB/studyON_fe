@@ -2,52 +2,41 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 import AchievementView from "../view/AchievementView";
 
-@inject("TodoStore")
+@inject("TodoStore", "UserStore")
 @observer
 class AchievementContainer extends Component {
+  componentDidMount() {
+    console.log("achievementContainer: ");
+    const { TodoStore } = this.props;
+    let currentUser = this.props.UserStore.currentUser;
+    let date = this.props.TodoStore.date;
+    let dateTodo = this.props.TodoStore.dateTodo;
+    dateTodo = TodoStore.todoList(currentUser.id, date);
+  }
+
   onSetAchieveProp = (name, value) => {
-    console.log(name, value);
     this.props.TodoStore.setAcheiveProp(name, value);
   };
 
-  onClickSatisfy = () => {
+  onClickGood = () => {
     this.props.setPopUp(false);
-    this.props.TodoStore.setAchievements("만족");
-    this.props.TodoStore.setColors("#32a852");
-    let date = this.props.TodoStore.date;
-    this.onSetAchieveProp("date", date);
-    let title_achieve = this.props.TodoStore.title_achieve;
-    this.onSetAchieveProp("title", title_achieve);
-    let color_achieve = this.props.TodoStore.color_achieve;
-    this.onSetAchieveProp("color", color_achieve);
-    let achievement = this.props.TodoStore.achievement;
-    this.props.TodoStore.addAchievement(achievement);
+    let dateTodo = this.props.TodoStore.dateTodo;
+    dateTodo.achievment = "good";
+    this.props.TodoStore.achievementSave(dateTodo.id, dateTodo.achievment);
   };
-  onClickUsually = () => {
+
+  onClickNormal = () => {
     this.props.setPopUp(false);
-    this.props.TodoStore.setAchievements("보통");
-    this.props.TodoStore.setColors("#fcba03");
-    let date = this.props.TodoStore.date;
-    this.onSetAchieveProp("date", date);
-    let title_achieve = this.props.TodoStore.title_achieve;
-    this.onSetAchieveProp("title", title_achieve);
-    let color_achieve = this.props.TodoStore.color_achieve;
-    this.onSetAchieveProp("color", color_achieve);
-    let achievement = this.props.TodoStore.achievement;
-    this.props.TodoStore.addAchievement(achievement);
+    let dateTodo = this.props.TodoStore.dateTodo;
+    dateTodo.achievment = "normal";
+    this.props.TodoStore.achievementSave(dateTodo.id, dateTodo.achievment);
   };
-  onClickDissatisfy = () => {
+
+  onClickBad = () => {
     this.props.setPopUp(false);
-    this.props.TodoStore.setAchievements("불만족");
-    this.props.TodoStore.setColors("#a83232");
-    let date = this.props.TodoStore.date;
-    this.onSetAchieveProp("date", date);
-    let title_achieve = this.props.TodoStore.title_achieve;
-    this.onSetAchieveProp("title", title_achieve);
-    let color_achieve = this.props.TodoStore.color_achieve;
-    this.onSetAchieveProp("color", color_achieve);
-    let achievement = this.props.TodoStore.achievement;
-    this.props.TodoStore.addAchievement(achievement);
+    let dateTodo = this.props.TodoStore.dateTodo;
+    dateTodo.achievment = "bad";
+    this.props.TodoStore.achievementSave(dateTodo.id, dateTodo.achievment);
   };
 
   render() {
@@ -59,9 +48,9 @@ class AchievementContainer extends Component {
         <AchievementView
           setPopUp={setPopUp}
           mySocket={mySocket}
-          onClickSatisfy={this.onClickSatisfy}
-          onClickUsually={this.onClickUsually}
-          onClickDissatisfy={this.onClickDissatisfy}
+          onClickGood={this.onClickGood}
+          onClickNormal={this.onClickNormal}
+          onClickBad={this.onClickBad}
         />
       </div>
     );

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 class TodoApi {
-  // URL = "/api/todos/";
   URL = "/todo";
 
   todoCreate(TodoApiModel) {
@@ -11,9 +10,9 @@ class TodoApi {
       .then((response) => (response && response.data) || null);
   }
 
-  todoDetail(todoNum) {
+  todoDetail(id) {
     return axios
-      .get(this.URL + `${todoNum}/`)
+      .get(this.URL + `/${id}`)
       .then((response) => (response && response.data) || null);
   }
 
@@ -23,17 +22,15 @@ class TodoApi {
       .then((response) => (response && response.data) || null);
   }
 
-  todoModify(todoApiModel) {
-    let todoJson = JSON.stringify(todoApiModel);
-
+  todoModify(TodoApiModel, id) {
     return axios
-      .put(this.URL, todoJson)
+      .put(this.URL + `/${id}`, TodoApiModel)
       .then((response) => (response && response.data) || null);
   }
 
-  todoDelete(todoNum) {
+  todoDelete(id) {
     return axios
-      .delete(this.URL + `${todoNum}/`)
+      .delete(this.URL + `/${id}`)
       .then((response) => (response && response.data) || null);
   }
 }

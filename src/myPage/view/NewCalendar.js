@@ -15,8 +15,7 @@ export default class NewCalendar extends React.Component {
           plugins={[dayGridPlugin, interactionPlugin]}
           events={achievement}
           dateClick={handleDateClick}
-          eventColor={color}
-          //backgroundColor={"#fcba03"}
+          //eventColor={color}
         />
       </div>
     );

@@ -1,21 +1,29 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import TodoView from "../view/TodoView";
-import generateId from "../view/IDGenerator";
 
 @inject("TodoStore", "UserStore")
 @observer
 class TodoContainer extends Component {
   componentDidMount() {
     console.log("todoContainer: ");
-    const { todoStore } = this.props;
-    if (todoStore) {
-      todoStore.selectAll();
-    }
+    const { TodoStore } = this.props;
+    let currentUser = this.props.UserStore.currentUser;
+    let date = this.props.TodoStore.date;
+    TodoStore.todoList(currentUser.id, date);
+    this.props.TodoStore.todo = {};
   }
 
-  onSelectTodo = (todoNum) => {
-    this.props.TodoStore.selectTodo(todoNum);
+  componentDidUpdate() {
+    const { TodoStore } = this.props;
+    let currentUser = this.props.UserStore.currentUser;
+    let date = this.props.TodoStore.date;
+    TodoStore.todoList(currentUser.id, date);
+  }
+
+  onSelectTodo = (id) => {
+    this.props.TodoStore.selectTodo(id);
+    console.log("id", id);
   };
 
   onSetTodoProp = (name, value) => {
@@ -29,34 +37,38 @@ class TodoContainer extends Component {
     let date = this.props.TodoStore.date;
     this.onSetTodoProp("todoDate", date);
     let todo = this.props.TodoStore.todo;
-    //todo = { ...todo, id: generateId(5) };
     this.props.TodoStore.addTodo(todo);
-    console.log(JSON.stringify(todo));
+    this.props.TodoStore.todo = {};
   };
 
   onRemoveTodo = () => {
     let todo = this.props.TodoStore.todo;
-    this.props.TodoStore.removeTodo(todo.todoNum);
+    console.log("removeId: ", todo.id);
+    this.props.TodoStore.removeTodo(todo.id);
   };
 
   onModifyTodo = () => {
     let todo = this.props.TodoStore.todo;
-    this.props.TodoStore.modifyTodo(todo);
+    console.log("modifyId: ", todo.id);
+    this.props.TodoStore.modifyTodo(todo, todo.id);
+    this.props.TodoStore.todo = {};
   };
 
   onTodoCheck = (e) => {
-    this.onSetTodoProp("isComplete", e.target.checked);
+    this.onSetTodoProp("complete", e.target.checked);
     let todo = this.props.TodoStore.todo;
-    console.log(todo);
+    this.props.TodoStore.modifyTodo(todo, todo.id);
   };
 
   render() {
     const { todo } = this.props.TodoStore;
-    const todos = this.props.TodoStore.getTodos;
+    // const todos = this.props.TodoStore.getTodos;
+    const dateTodo = this.props.TodoStore.getDateTodo;
     return (
       <TodoView
         todo={todo}
-        todos={todos}
+        // todos={todos}
+        dateTodo={dateTodo}
         onSetTodoProp={this.onSetTodoProp}
         onAddTodo={this.onAddTodo}
         onRemoveTodo={this.onRemoveTodo}

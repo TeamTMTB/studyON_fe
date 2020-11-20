@@ -16,4 +16,12 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    "/todo-oneday",
+    createProxyMiddleware({
+      target: "http://localhost:8090",
+      changeOrigin: true,
+    })
+  );
 };

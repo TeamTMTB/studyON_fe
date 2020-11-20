@@ -12,7 +12,7 @@ class TodoView extends Component {
   render() {
     const {
       todo,
-      todos,
+      dateTodo,
       onSetTodoProp,
       onAddTodo,
       onRemoveTodo,
@@ -35,21 +35,32 @@ class TodoView extends Component {
             Todo List
           </strong>
           <div>
-            {Array.isArray(todos) && todos.length ? (
-              todos.map((todo) => {
+            {Array.isArray(dateTodo.todos) && dateTodo.todos.length ? (
+              dateTodo.todos.map((todo) => {
                 return (
                   <div key={todo.id} onClick={() => onSelectTodo(todo.id)}>
-                    <Checkbox onChange={onTodoCheck} />{todo.desc}
+                    <Checkbox onChange={onTodoCheck} checked={todo.complete} />
+                    {todo.desc}
                   </div>
                 );
               })
             ) : (
-                <p>empty</p>
-              )}
+              <p>empty</p>
+            )}
+
+            {/* 가데이터
+            {dateTodo.todos.map((todo) => {
+              return (
+                <div key={todo.id} onClick={() => onSelectTodo(todo.id)}>
+                  <Checkbox onChange={onTodoCheck} />
+                  {todo.desc}
+                </div>
+              );
+            })} */}
           </div>
           <Input
             placeholder="enter your todo"
-            // allowClear onChange={onChange}
+            //allowClear onChange={onChange}
             fluid
             label="desc"
             value={todo && todo.desc ? todo.desc : ""}

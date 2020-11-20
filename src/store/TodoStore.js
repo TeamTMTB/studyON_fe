@@ -2,40 +2,38 @@ import { observable, computed, action } from "mobx";
 import DateFunction from "../myPage/container/DateFunction";
 import TodoApi from "../myPage/api/TodoApi";
 import TodoApiModel from "../myPage/api/model/TodoApiModel";
+import AchievementApi from "../roomEntrance/api/AchievementApi";
 
 class TodoStore {
   todoApi = new TodoApi();
+  achievementApi = new AchievementApi();
 
   //observable
   @observable
   todos = [];
 
-  //기존에 { title: "default", isChecked: true } 이 형태였음 => 고칠 것
   @observable
   todo = {
     userId: "",
     desc: "",
     todoDate: "",
-    isComplete: false,
+    complete: false,
   };
+
+  @observable
+  dateTodo = {}; //하루의 todo 리스트 조회
+
+  @observable
+  monthAchievement = []; //한달 동안의 성취도 조회
 
   @observable
   date = DateFunction();
 
   @observable
-  dateTodo = [];
+  achievement = {}; //{title: "good", date: "2020-11-15", color: "#ffffff"}
 
   @observable
-  title_achieve = "불만족";
-
-  @observable
-  color_achieve = "";
-
-  @observable
-  achievement = {};
-
-  @observable
-  achievements = [{ title: "보통", date: "2020-11-14", color: "" }];
+  achievements = []; //achievement 합친 배열
 
   @observable
   errorMessage = "";
@@ -49,6 +47,11 @@ class TodoStore {
   @computed
   get getTodos() {
     return this.todos ? this.todos.slice() : [];
+  }
+
+  @computed
+  get getDateTodo() {
+    return this.dateTodo ? { ...this.dateTodo } : {};
   }
 
   @computed
@@ -71,16 +74,6 @@ class TodoStore {
   }
 
   @action
-  setAchievements(title_achieve) {
-    this.title_achieve = title_achieve;
-  }
-
-  @action
-  setColors(color_achieve) {
-    this.color_achieve = color_achieve;
-  }
-
-  @action
   setAcheiveProp(name, value) {
     this.achievement = {
       ...this.achievement,
@@ -90,12 +83,11 @@ class TodoStore {
 
   @action
   async addTodo(todo) {
-    //todo.userId = 0;
     const todoApiModel = new TodoApiModel(
       todo.userId,
       todo.desc,
       todo.todoDate,
-      todo.isComplete
+      todo.complete
     );
     console.log(todoApiModel);
     const result = this.todoApi.todoCreate(todoApiModel);
@@ -106,57 +98,71 @@ class TodoStore {
   }
 
   @action
-  async removeTodo(todoNum) {
-    this.todos = this.todos.filter((element) => element.todoNum !== this.todo);
-    this.todo = {};
-
-    let result = this.todoApi.todoDelete(todoNum);
-    if (result == null) {
-      this.errorMessage = `Error : There is no Todo with todoNum ${todoNum} `;
-    }
+  async modifyTodo(todo) {
+    const todoApiModel = new TodoApiModel(
+      todo.userId,
+      todo.desc,
+      todo.todoDate,
+      todo.complete
+    );
+    this.todoApi.todoModify(todoApiModel, todo.id);
   }
 
   @action
-  async modifyTodo(todoApiModel) {
-    this.todos = this.todos.map((element) =>
-      element.todoNum === todoApiModel.todoNum
-        ? JSON.stringify(todoApiModel)
-        : element
+  async removeTodo(id) {
+    this.dateTodo.todos = this.dateTodo.todos.filter(
+      (element) => element.id !== this.todo
     );
     this.todo = {};
-
-    let result = this.todoApi.todoModify(todoApiModel);
+    let result = this.todoApi.todoDelete(id);
     if (result == null) {
-      this.errorMessage = `Error : cannot modify Todo No.${todoApiModel.title}`;
+      this.errorMessage = `Error : There is no Todo with todoNum ${id} `;
     }
   }
 
   @action
   async selectTodo(id) {
-    console.log("selectTodo");
-    // console.log(todoNum);
-    this.todo = this.todos.find((element) => element.id === id);
-    // this.todo = await this.todoApi.todoDetail(todoNum);
+    console.log("id: " + id);
+    this.todo = this.dateTodo.todos.find((element) => element.id === id);
+    //this.todo = await this.todoApi.todoDetail(id);
     console.log(this.todo);
     if (this.todo == null) {
       this.errorMessage = `Error : There is no Todo named ${id}`;
     }
   }
 
-  @action
-  async selectAll() {
-    console.log("select all");
-    const todos = await this.todoApi.todoList();
-    console.log(todos);
-    this.todos = todos;
+  // @action
+  // async selectAll() {
+  //   console.log("select all");
+  //   const dateTodo = await this.todoApi.todoList();
+  //   this.dateTodo.push(dateTodo);
+  //   // this.todos = todos;
+  //   if (this.todos == null) {
+  //     return "empty list";
+  //   }
+  // }
 
-    if (this.todos == null) {
-      return "empty list";
-    }
-  }
   @action
-  addAchievement(achievement) {
-    this.achievements.push(achievement);
+  async todoList(userId, todoDate) {
+    this.dateTodo = await this.todoApi.todoList(userId, todoDate);
+    //console.log(this.dateTodo);
+  }
+
+  @action
+  async achievementSave(id, achievment) {
+    console.log(id, achievment);
+    this.achievementApi.achievementSave(id, achievment);
+    console.log(this.dateTodo);
+  }
+
+  @action
+  async achievementList(month, userId) {
+    console.log(month, userId);
+    this.monthAchievement = await this.achievementApi.achievementList(
+      month,
+      userId
+    );
+    return this.monthAchievement;
   }
 }
 
