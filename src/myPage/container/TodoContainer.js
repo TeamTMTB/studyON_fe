@@ -60,15 +60,16 @@ class TodoContainer extends Component {
     this.onSetTodoProp("complete", e.target.checked);
     let todo = this.props.TodoStore.todo;
     this.props.TodoStore.modifyTodo(todo, todo.id);
-    console.log(currentUser.name+ todo.desc+" checked" + e.target.checked)
+    console.log(currentUser.name + todo.desc + " checked" + e.target.checked);
 
-    if(e.target.checked === true){
-      Store.mySocket.emit("todo checked", ({
+    if (e.target.checked === true) {
+      Store.mySocket.emit("todo checked", {
         todoDesc: todo.desc,
         userName: currentUser.name,
         owner: this.props.owner,
-    }));
+      });
     }
+    this.props.TodoStore.todo = {};
   };
 
   render() {

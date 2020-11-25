@@ -40,6 +40,7 @@ class TodoView extends Component {
                 return (
                   <div key={todo.id} onClick={() => onSelectTodo(todo.id)}>
                     <Checkbox onChange={onTodoCheck} checked={todo.complete} />
+                    &nbsp;&nbsp;
                     {todo.desc}
                   </div>
                 );
